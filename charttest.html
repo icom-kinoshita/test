@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+ <head>
+   <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js"></script>
+  <script>
+
+window.onload = init;
+
+var rip = [1,1,5,2,3,2,0,0,0,0,0,0];
+var sum = [];
+var sum_cnt = 0;
+for(var i = 0 ; i < rip.length; i++ ){
+  sum_cnt = sum_cnt + rip[i];
+  sum[i] = sum_cnt;
+}
+
+
+function init(){
+
+var canvas = document.getElementById('stage');
+//「月別データ」
+var mydata = {
+  labels: ["４月", "５月", "６月", "７月","８月","９月","１０月","１１月","１２月","１月","２月","３月"],
+  datasets: [
+    {
+      type : "bar",
+      label: '人数',
+      hoverBackgroundColor: "rgba(255,99,132,0.3)",
+      data: rip,
+      yAxisID : "first"
+    },
+    {
+      type : "line",
+      label: '累計',
+      data: sum,
+      fill : false,
+      lineTension : 0,
+      borderColor : "rgba(255,0,0,0.8)",
+      yAxisID : "second"
+    }
+  ]
+};
+
+//「オプション設定」
+var options = {
+  title: {
+    display: true,
+    text: '２０１８年度実績'
+  },
+  scales : {
+    yAxes: [{
+                id: 'first',
+                type: 'linear',
+                ticks : {stepSize:1}
+            }, {
+                id: 'second',
+                type: 'linear',
+                position : "right",
+                ticks : {beginAtZero : true}
+            }]
+  }
+};
+var chart = new Chart(canvas, {
+
+
+  type: 'bar',  //グラフの種類
+  data: mydata,  //表示するデータ
+  options: options  //オプション設定
+
+
+});
+}
+  </script>
+ </head>
+ <body>
+<canvas id="stage"></canvas>
+ </body>
+</html>
